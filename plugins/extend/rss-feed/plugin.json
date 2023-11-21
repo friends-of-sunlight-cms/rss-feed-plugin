@@ -1,0 +1,36 @@
+{
+    "$schema": "../../../system/schema/extend.json",
+    "name": "RSS feed",
+    "description": "RSS feed of latest articles.",
+    "authors": [
+        {"name": "Lukáš Tesař", "url": "https://tlukas.eu"}
+    ],
+    "version": "1.0.1",
+    "environment": {
+        "system": "^8.0"
+    },
+    "actions": {
+        "config": "ConfigAction"
+    },
+    "config_defaults": {
+        "limit": 10
+    },
+    "langs": {
+        "rss-feed": "lang"
+    },
+    "events": [
+        {"event": "tpl.head.meta", "script": "event/link_head.php"},
+        {"event": "admin.article.new", "script": "event/generate_rss.php"},
+        {"event": "admin.article.edit", "script": "event/generate_rss.php"}
+    ],
+    "routes": [
+        {"pattern": "rss", "script": "script/rss.php"},
+        {"pattern": "remote/rss.php", "script": "script/rss.php"}
+    ],
+    "cron": {
+        "rss-feed": {
+            "interval": 7200,
+            "script": "cron/generate_rss.php"
+        }
+    }
+}
