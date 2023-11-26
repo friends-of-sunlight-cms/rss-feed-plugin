@@ -9,12 +9,12 @@ use Sunlight\Database\Database as DB;
 
 class RssFeed
 {
-    private function getDir()
+    private static function getDir()
     {
         return SL_ROOT . Core::$pluginManager->getPlugins()->getExtend('rss-feed')->getWebPath() . "/public/";
     }
     
-    public function create()
+    public static function create()
     {
         $limit = Core::$pluginManager->getPlugins()->getExtend('rss-feed')->getConfig()['limit'];
         $title = Template::siteTitle() . " - " . _lang('rss-feed.generate.title');
@@ -60,7 +60,7 @@ class RssFeed
         fclose($file);
     }
     
-    public function show()
+    public static function show()
     {
         header("Content-Type: application/xml; charset=UTF-8");
         readfile(self::getDir() . "rss.xml");
