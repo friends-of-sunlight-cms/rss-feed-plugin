@@ -28,7 +28,7 @@ class RssFeed
         $content .= "<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\">\n";
         $content .= "<channel>\n";
         $content .= "<title>" . $title . "</title>\n";
-        $content .= "<atom:link href=\"" . Router::path("rss", ['absolute' => true]) . "\" rel=\"self\" type=\"application/rss+xml\" />\n";
+        $content .= "<atom:link href=\"" . _e(Router::path("rss", ['absolute' => true])) . "\" rel=\"self\" type=\"application/rss+xml\" />\n";
         $content .= "<link>" . Template::siteUrl() . "</link>\n";
         $content .= "<description>" . Template::siteDescription() . "</description>\n";
         $content .= "<language>" . _e(Core::$langPlugin->getIsoCode()) . "</language>\n";
@@ -36,7 +36,7 @@ class RssFeed
         $content .= "<sy:updateFrequency>1</sy:updateFrequency>\n";
         $content .= "<image>\n";
         $content .= "<title>" . $title . "</title>\n";
-        $content .= "<url>" . Router::file(self::getDir() . "images/rss-logo.gif", ['absolute' => true]) . "</url>\n";
+        $content .= "<url>" . _e(Router::file(self::getDir() . "images/rss-logo.gif", ['absolute' => true])) . "</url>\n";
         $content .= "<link>" .  Template::siteUrl() . "</link>\n";
         $content .= "<width>60</width>\n";
         $content .= "<height>60</height>\n";
