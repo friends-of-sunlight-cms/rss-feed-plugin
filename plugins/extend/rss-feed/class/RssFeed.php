@@ -11,7 +11,7 @@ class RssFeed
 {
     private static function getDir()
     {
-        return SL_ROOT . Core::$pluginManager->getPlugins()->getExtend('rss-feed')->getWebPath() . "/public/";
+        return __DIR__ . DIRECTORY_SEPARATOR . "../public/";
     }
     
     public static function create()
@@ -55,14 +55,21 @@ class RssFeed
         $content .= "</channel>\n";
         $content .= "</rss>\n";
 
-        $file = fopen(self::getDir() . "rss.xml", "w") or die("Unable to open file!");
-        fwrite($file, $content);
-        fclose($file);
+        $filePath = self::getDir() . 'rss.xml';
+        if (file_put_contents($filePath, $content) === false)
+        {
+            Sunlight\Logger::warning("system", "Unable to write to file - " . $filePath);
+        }
     }
     
     public static function show()
     {
+        $filePath = self::getDir() . 'rss.xml';
+        if (!file_exists($filePath)) 
+        {
+            self::create();
+        }
         header("Content-Type: application/xml; charset=UTF-8");
-        readfile(self::getDir() . "rss.xml");
+        readfile($filePath);
     }
 }
